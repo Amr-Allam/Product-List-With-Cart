@@ -1,0 +1,412 @@
+:root {
+  --Red: hsl(14, 86%, 42%);
+
+  --Rose50: hsl(20, 50%, 98%);
+  --Rose100: hsl(13, 31%, 94%);
+  --Rose300: hsl(14, 25%, 72%);
+  --Rose400: hsl(7, 20%, 60%);
+  --Rose500: hsl(12, 20%, 44%);
+  --Rose900: hsl(14, 65%, 9%);
+
+  --main-transition: all 0.3s;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #00000073;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+body {
+  font-family: "Red Hat Text", system-ui;
+  padding: 70px 40px 0;
+  background-color: var(--Rose100);
+  position: relative;
+}
+::-webkit-scrollbar {
+  width: 7.5px;
+}
+.orders-container::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--Red);
+}
+button {
+  cursor: pointer;
+  outline: none;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Desserts ------------------------------------------------ */
+.desserts {
+  max-width: 790px;
+}
+.desserts h1 {
+  margin-bottom: 20px;
+}
+.card-container {
+  display: flex;
+  flex-flow: wrap;
+  gap: 20px;
+}
+.card {
+  width: 250px;
+  position: relative;
+}
+.card img {
+  width: 100%;
+  border-radius: 7px;
+}
+.card h3 {
+  color: var(--Rose400);
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 25px;
+}
+.card h4 {
+  color: var(--Rose900);
+  font-weight: 700;
+}
+.card p {
+  color: var(--Red);
+  font-weight: 700;
+}
+/* Button on cards ------------------------------------------ */
+.btn-add-to-cart {
+  position: absolute;
+  left: 50%;
+  bottom: 72px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 5px;
+  width: 150px;
+  height: 42px;
+  border-radius: 25px;
+  background-color: var(--Rose50);
+  color: var(--Rose900);
+  border: 1px solid var(--Rose500);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--main-transition);
+}
+.btn-add-to-cart img {
+  flex: 0 1;
+  height: 20px;
+  margin-right: 7px;
+}
+.btn-add-to-cart-hover {
+  color: var(--Red);
+  border: 1px solid var(--Red);
+}
+.btn-add-to-cart-clicked {
+  background-color: var(--Red);
+  color: var(--Rose50);
+  border: none;
+  transform: scale(1.05) translateX(-47.5%);
+}
+/* ------------------------------------------------------- */
+.btn-add-to-cart button {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  font-size: 17px;
+  border-radius: 50%;
+  background-color: var(--Red);
+  color: var(--Rose50);
+  border: 1px solid var(--Rose50);
+  transition: var(--main-transition);
+}
+.btn-add-to-cart button:hover {
+  color: var(--Red);
+  background-color: var(--Rose50);
+}
+.btn-add-to-cart button:active {
+  color: var(--Rose50);
+  background-color: var(--Red);
+}
+.btn-add-to-cart .decrement {
+  left: 10px;
+}
+.btn-add-to-cart .increment {
+  right: 10px;
+  align-items: center;
+  font-size: 20px;
+}
+
+/* Cart ------------------------------------------------- */
+.cart {
+  width: 400px;
+  height: fit-content;
+  padding: 20px;
+  border-radius: 7px;
+  text-align: center;
+  background-color: var(--Rose50);
+  font-weight: 700;
+}
+.cart h2 {
+  margin-bottom: 30px;
+  text-align: left;
+  color: var(--Red);
+}
+.cart .empty-cart {
+  color: var(--Rose500);
+  font-weight: 500;
+  margin: 10px 0 20px;
+  font-size: 14px;
+}
+/* Items in cart------------------------------------------ */
+.cart .btn-order-remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+  font-size: 21px;
+  border-radius: 50%;
+  border: 2px solid var(--Rose300);
+  color: var(--Rose300);
+  transition: var(--main-transition);
+  transform: translateY(-7px);
+}
+.cart .btn-order-remove:hover {
+  color: var(--Rose900);
+  border-color: var(--Rose900);
+}
+.cart .carbon-neutral {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  background-color: var(--Rose100);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 15px 10px;
+  border-radius: 7px;
+  color: hsl(12 20% 37% / 1);
+  text-wrap: nowrap;
+}
+.cart .carbon-neutral img {
+  width: 21px;
+}
+.cart .carbon-neutral span {
+  font-weight: 700;
+}
+/* For both orders button ------------------------------------------ */
+.btn-order {
+  width: 100%;
+  margin-top: 25px;
+  padding: 20px 0;
+  font-size: 17px;
+  font-weight: 500;
+  background-color: var(--Red);
+  color: var(--Rose50);
+  border: none;
+  border-radius: 30px;
+  transition: var(--main-transition);
+}
+.btn-order:hover {
+  background-color: hsl(14 86% 31% / 1);
+}
+.btn-order:active {
+  background-color: var(--Red);
+}
+
+/* For both orders-container --------------------------------------*/
+.orders-container .order {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  border-bottom: 1px solid #0000001f;
+  padding: 20px 0 10px;
+}
+.orders-container .order:first-child {
+  padding: 0 0 10px;
+}
+.orders-container .order-info p {
+  text-align: left;
+  margin-bottom: 10px;
+  color: var(--Rose900);
+}
+.orders-container .order-counter {
+  color: var(--Red);
+}
+.orders-container .order-price-each {
+  color: var(--Rose300);
+  font-weight: 500;
+}
+.orders-container .order-price {
+  color: var(--Rose400);
+}
+.orders-container .order-info span {
+  margin-right: 10px;
+}
+.order-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0;
+}
+.order-total .order-total-label {
+  font-weight: 600;
+  color: hsl(12 20% 37% / 1);
+}
+.order-total .order-total-price {
+  font-size: 28px;
+  color: var(--Rose900);
+}
+
+/* Confirmed Order ------------------------------------------ */
+.order-confirmed {
+  position: fixed;
+  bottom: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 40%;
+  background-color: var(--Rose50);
+  padding: 25px;
+  border-radius: 7px;
+  z-index: 100;
+}
+.order-confirmed header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 30px;
+}
+.order-confirmed header img {
+  height: 48px;
+  margin-bottom: 10px;
+}
+.order-confirmed header h2 {
+  color: var(--Rose900);
+  font-size: 30px;
+}
+.order-confirmed header p {
+  color: var(--Rose500);
+}
+.order-confirmed .orders {
+  background-color: var(--Rose100);
+  border-radius: 7px;
+  padding: 20px;
+  padding-right: 10px;
+  font-weight: 700;
+}
+.order-confirmed .orders .orders-container {
+  max-height: 200px;
+  overflow: auto;
+}
+.order-confirmed .order {
+  padding-right: 10px;
+}
+.order-confirmed .order:first-child {
+  padding: 0 10px 10px 0;
+}
+.order-confirmed .order img {
+  height: 55px;
+  border-radius: 7px;
+}
+.order-confirmed .order .order-info {
+  margin-right: auto;
+  overflow: hidden;
+}
+.order-confirmed .order .order-info .order-name {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.order-confirmed .order .order-info .order-price-each {
+  color: var(--Rose500);
+}
+.order-confirmed .order .order-price {
+  color: var(--Rose900);
+}
+.order-confirmed .orders .order-total {
+  padding: 25px 0 0;
+}
+
+/* footer Links ------------------------------------------ */
+footer {
+  padding: 20px;
+  font-size: 11px;
+  text-align: center;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--Rose900);
+}
+footer a {
+  text-decoration: none;
+  color: hsl(14 86% 50% / 1);
+}
+footer a:hover {
+  color: var(--Red);
+}
+
+@media (max-width: 1240px) {
+  .desserts {
+    max-width: 520px;
+  }
+  .order-confirmed {
+    width: 50%;
+  }
+}
+@media (max-width: 970px) {
+  .desserts {
+    max-width: 300px;
+  }
+
+  .order-confirmed {
+    width: 70%;
+  }
+}
+@media (max-width: 670px) {
+  body {
+    padding: 20px 20px 0;
+  }
+
+  .container {
+    flex-flow: wrap;
+  }
+
+  .card {
+    width: 300px;
+  }
+  .card > img {
+    height: 220px;
+  }
+
+  .cart {
+    padding: 20px;
+    width: 300px;
+  }
+
+  .order-confirmed {
+    width: 100%;
+    bottom: 0;
+    transform: translate(-50%, 0);
+  }
+}
