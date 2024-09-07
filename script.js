@@ -15,6 +15,7 @@ cardContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("btn-add-to-cart")) {
     addOrders(e);
     clickedAddCartStyle(e);
+    updateCartNumber();
   }
 });
 
@@ -36,6 +37,7 @@ cardContainer.addEventListener("click", (e) => {
     ).textContent = `$${totalPrice.toFixed(2)}`;
 
     cartCounter.textContent = counter;
+    updateCartNumber();
   }
 });
 
@@ -48,6 +50,7 @@ cardContainer.addEventListener("click", (e) => {
 
     if (counter === 1) {
       removeOrder(order, category);
+      updateCartNumber();
     } else {
       counter--;
       order.querySelector(".order-counter").textContent = `${counter}x`;
@@ -58,6 +61,7 @@ cardContainer.addEventListener("click", (e) => {
       updateTotalPrice();
 
       cartCounter.textContent = counter;
+      updateCartNumber();
     }
   }
 });
@@ -87,6 +91,7 @@ cartOrderContainer.addEventListener("click", function (e) {
     totalPrice -= price;
     updateTotalPrice();
     removeOrder(order, category);
+    updateCartNumber();
   }
 });
 
@@ -120,6 +125,7 @@ newOrderBtn.addEventListener("click", () => {
   }
   totalPrice = 0;
   closeConfirmedOrder();
+  updateCartNumber();
 });
 
 // Close overlay

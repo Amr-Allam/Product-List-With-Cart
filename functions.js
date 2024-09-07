@@ -106,7 +106,7 @@ const updateTotalPrice = function () {
   ).textContent = `$${totalPrice.toFixed(2)}`;
 };
 
-// remove 1 order from cart
+// Remove 1 order from cart
 const removeOrder = function (order, category) {
   updateTotalPrice();
   order.remove();
@@ -116,6 +116,17 @@ const removeOrder = function (order, category) {
     emptyCart.previousElementSibling.style.display = "initial";
   }
   defaultAddCardStyle(category);
+};
+
+// Update number of orders in cart
+const updateCartNumber = function () {
+  let counter = 0;
+  const yourCart = document.querySelector(".cart h2");
+  const orders = [...cartOrderContainer.querySelectorAll(".order")];
+  for (const order of orders) {
+    counter += parseInt(order.querySelector(".order-counter").textContent);
+  }
+  yourCart.textContent = `Your Cart (${counter})`;
 };
 
 // Click styles to add-to-cart
