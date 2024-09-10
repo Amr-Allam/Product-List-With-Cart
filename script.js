@@ -12,9 +12,10 @@ let totalPrice = 0;
 
 // Add orders to cart
 cardContainer.addEventListener("click", (e) => {
-  if (e.target.classList.contains("btn-add-to-cart")) {
-    addOrders(e);
-    clickedAddCartStyle(e);
+  if (e.target.closest(".btn-add-to-cart")) {
+    const button = e.target.closest(".btn-add-to-cart");
+    addOrder(button);
+    clickedAddCartStyle(button);
     updateCartNumber();
   }
 });
@@ -44,12 +45,12 @@ cardContainer.addEventListener("click", (e) => {
 // Decrement
 cardContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("decrement")) {
-    let { cartCounter, counter, category, order, priceEach } = incDecVars(e);
+    let { cartCounter, counter, nameID, order, priceEach } = incDecVars(e);
 
     totalPrice -= priceEach;
 
     if (counter === 1) {
-      removeOrder(order, category);
+      removeOrder(order, nameID);
       updateCartNumber();
     } else {
       counter--;
@@ -84,19 +85,20 @@ cardContainer.addEventListener("mouseout", (e) => {
 cartOrderContainer.addEventListener("click", function (e) {
   if (e.target.classList.contains("btn-order-remove")) {
     const order = e.target.parentElement;
-    const category = [...e.target.parentElement.classList][1];
+    const nameID = e.target.closest(".order").id;
     const price = Number(
       order.querySelector(".order-price").textContent.slice(1)
     );
     totalPrice -= price;
     updateTotalPrice();
-    removeOrder(order, category);
+    removeOrder(order, nameID);
     updateCartNumber();
   }
 });
 
 // Confirm order
 cart.addEventListener("click", (e) => {
+  orderConfirmed.querySelector(".orders-container").innerHTML = "";
   if (e.target.classList.contains("btn-confirm-order")) {
     overlay.classList.remove("hidden");
     orderConfirmed.classList.remove("hidden");
@@ -118,9 +120,9 @@ newOrderBtn.addEventListener("click", () => {
   emptyCart.previousElementSibling.style.display = "initial";
   const cards = [...cardContainer.querySelectorAll(".card")];
   for (const card of cards) {
-    const category = [...card.classList][1];
-    if (category) {
-      defaultAddCardStyle(category);
+    const nameID = card.id;
+    if (nameID) {
+      defaultAddCardStyle(nameID);
     }
   }
   totalPrice = 0;

@@ -7,43 +7,50 @@ const jsonFile = async function () {
   for (const data of file) {
     const order = `
             <div class="card">
-              <img src="${data["image"]["desktop"]}"/>
+              <picture>
+                <source srcset="${
+                  data["image"]["mobile"]
+                }" media="(max-width: 670px)" />
+                <img src="${data["image"]["desktop"]}" />
+              </picture>
               <h3>${data["category"]}</h3>
               <h4>${data["name"]}</h4>
               <p>$${data["price"].toFixed(2)}</p>
-              <div class="btn-add-to-cart">
+              <div class="btn btn-add-to-cart">
                 <img src="assets/images/icon-add-to-cart.svg" /> Add to Cart
               </div>
             </div>
     `;
-    cardContainer.insertAdjacentHTML("afterbegin", order);
+    cardContainer.insertAdjacentHTML("beforeend", order);
   }
 };
 jsonFile();
 
-// Add orders to cart
-const addOrders = function (e) {
+// Add order to cart
+const addOrder = function (button) {
   emptyCart.style.display = "none";
   emptyCart.previousElementSibling.style.display = "none";
 
-  const card = e.target.closest(".card");
+  const card = button.closest(".card");
   const orderName = card.querySelector("h4").textContent;
   const orderPrice = Number(
     card.querySelector("p").textContent.slice(1)
   ).toFixed(2);
-  const category = card
+  const nameID = card
     .closest(".card")
-    .querySelector("h3")
-    .textContent.replace(" ", "-")
+    .querySelector("h4")
+    .textContent.replaceAll(" ", "-")
     .toLowerCase();
-  card.classList.add(`${category}`);
 
-  if (cartOrderContainer.querySelector(`.${category}`)) return;
+  card.setAttribute("id", `${nameID}`);
 
-  e.target.innerHTML = `<button class="decrement">&#8722;</button><span class = "counter">1</span><button class="increment">+</button>`;
+  // To not add the same order again ---------------------------------
+  if (cartOrderContainer.querySelector(`#${nameID}`)) return;
+
+  button.innerHTML = `<button class="decrement">&#8722;</button><span class = "counter">1</span><button class="increment">+</button>`;
 
   const order = `
-    <div class="order ${category}">
+    <div class="order" id='${nameID}'>
       <div class="order-info">
         <p class="order-name">${orderName}</p>
         <p>
@@ -55,7 +62,7 @@ const addOrders = function (e) {
       <button class="btn-order-remove">⨯</button>
     </div>
 `;
-  cartOrderContainer.insertAdjacentHTML("afterbegin", order);
+  cartOrderContainer.insertAdjacentHTML("beforeend", order);
 
   totalPrice = totalPrice + Number(orderPrice);
   if (!cartOrderContainer.nextElementSibling) {
@@ -85,18 +92,18 @@ const incDecVars = function (e) {
   const cartCounter = e.target.parentElement.querySelector("span");
   let counter = Number(cartCounter.textContent);
 
-  const category = e.target
+  const nameID = e.target
     .closest(".card")
-    .querySelector("h3")
-    .textContent.replace(" ", "-")
+    .querySelector("h4")
+    .textContent.replaceAll(" ", "-")
     .toLowerCase();
 
-  const order = cartOrderContainer.querySelector(`.${category}`);
+  const order = cartOrderContainer.querySelector(`#${nameID}`);
   const priceEach = Number(
     order.querySelector(".order-price-each").textContent.slice(3)
   );
 
-  return { cartCounter, counter, category, order, priceEach };
+  return { cartCounter, counter, nameID, order, priceEach };
 };
 
 // Update total price in cart
@@ -107,7 +114,7 @@ const updateTotalPrice = function () {
 };
 
 // Remove 1 order from cart
-const removeOrder = function (order, category) {
+const removeOrder = function (order, nameID) {
   updateTotalPrice();
   order.remove();
   if (cartOrderContainer.childElementCount === 0) {
@@ -115,7 +122,7 @@ const removeOrder = function (order, category) {
     emptyCart.style.display = "block";
     emptyCart.previousElementSibling.style.display = "initial";
   }
-  defaultAddCardStyle(category);
+  defaultAddCardStyle(nameID);
 };
 
 // Update number of orders in cart
@@ -130,16 +137,16 @@ const updateCartNumber = function () {
 };
 
 // Click styles to add-to-cart
-const clickedAddCartStyle = function (e) {
-  e.target.classList.add("btn-add-to-cart-clicked");
-  e.target.parentElement
+const clickedAddCartStyle = function (button) {
+  button.classList.add("btn-add-to-cart-clicked");
+  button.parentElement
     .querySelector("img")
-    .style.setProperty("outline", "3px solid var(--Red)");
+    .style.setProperty("outline", "3px solid var(--Red");
 };
 
 // Reset everything in card
-const defaultAddCardStyle = function (category) {
-  const card = cardContainer.querySelector(`.${category}`);
+const defaultAddCardStyle = function (nameID) {
+  const card = cardContainer.querySelector(`#${nameID}`);
   const cardBtn = card.querySelector(".btn-add-to-cart");
 
   card.querySelector("img").style.outline = "none";
@@ -150,8 +157,8 @@ const defaultAddCardStyle = function (category) {
 // Adding orders to confirmed orders window
 const createConfirmedOrders = function (orders) {
   for (let order of orders) {
-    const category = [...order.classList][1];
-    const card = cardContainer.querySelector(`.${category}`);
+    const nameID = order.id;
+    const card = cardContainer.querySelector(`#${nameID}`);
     const orderName = card.querySelector("h4").textContent;
     const orderPrice = Number(card.querySelector("p").textContent.slice(1));
     const img = card.querySelector("img").getAttribute("src");
@@ -176,7 +183,7 @@ const createConfirmedOrders = function (orders) {
     `;
     orderConfirmed
       .querySelector(".orders-container")
-      .insertAdjacentHTML("afterbegin", confirmedOrder);
+      .insertAdjacentHTML("beforeend", confirmedOrder);
   }
 };
 
