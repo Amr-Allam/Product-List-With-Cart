@@ -11,13 +11,13 @@ const jsonFile = async function () {
                 <source srcset="${
                   data["image"]["mobile"]
                 }" media="(max-width: 670px)" />
-                <img src="${data["image"]["desktop"]}" />
+                <img src="${data["image"]["desktop"]}" alt="product" />
               </picture>
               <h3>${data["category"]}</h3>
               <h4>${data["name"]}</h4>
               <p>$${data["price"].toFixed(2)}</p>
               <div class="btn btn-add-to-cart">
-                <img src="assets/images/icon-add-to-cart.svg" /> Add to Cart
+                <img src="assets/images/icon-add-to-cart.svg" alt="cart"/> Add to Cart
               </div>
             </div>
     `;
@@ -73,7 +73,7 @@ const addOrder = function (button) {
               <p class="order-total-price">$${totalPrice.toFixed(2)}</p>
             </div>
             <div class="carbon-neutral">
-              <img src="assets/images/icon-carbon-neutral.svg" />This is a
+              <img src="assets/images/icon-carbon-neutral.svg" alt="carbon-neutral"/>This is a
               <span>carbon-neutral</span> delivery
             </div>
             <button class="btn-confirm-order btn-order">Confirm Order</button>
@@ -151,7 +151,7 @@ const defaultAddCardStyle = function (nameID) {
 
   card.querySelector("img").style.outline = "none";
   cardBtn.classList.remove("btn-add-to-cart-clicked");
-  cardBtn.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" /> Add to Cart`;
+  cardBtn.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" alt="cart"/> Add to Cart`;
 };
 
 // Adding orders to confirmed orders window
@@ -166,7 +166,7 @@ const createConfirmedOrders = function (orders) {
     const counter = parseInt(order.querySelector(".order-counter").textContent);
     const confirmedOrder = `
           <div class="order">
-            <img src="${img}"/>
+            <img src="${img}" alt="product"/>
             <div class="order-info">
               <p class="order-name">${orderName}</p>
               <p>
