@@ -13,11 +13,11 @@ Users should be able to:
 - View the optimal layout for the interface depending on their device's screen size
 - See hover and focus states for all interactive elements on the page
 
-- Solution URL: [https://www.frontendmentor.io/solutions/responsive-product-list-with-cart-rdQWhvZmnQ]
-
 ### Built with
 
 - Semantic HTML5 markup
 - CSS custom properties
 - Flexbox
 - CSS Grid
+
+[My Solution](https://www.frontendmentor.io/solutions/responsive-product-list-with-cart-rdQWhvZmnQ)
