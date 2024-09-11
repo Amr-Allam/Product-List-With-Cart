@@ -1,6 +1,6 @@
 "use strict";
 
-const cardContainer = document.querySelector(".card-container");
+const productContainer = document.querySelector(".product-container");
 const cart = document.querySelector(".cart");
 const emptyCart = document.querySelector(".empty-cart");
 const cartOrderContainer = document.querySelector(".cart-orders-container");
@@ -11,7 +11,7 @@ const overlay = document.querySelector(".overlay");
 let totalPrice = 0;
 
 // Add orders to cart
-cardContainer.addEventListener("click", (e) => {
+productContainer.addEventListener("click", (e) => {
   if (e.target.closest(".btn-add-to-cart")) {
     const button = e.target.closest(".btn-add-to-cart");
     addOrder(button);
@@ -21,7 +21,7 @@ cardContainer.addEventListener("click", (e) => {
 });
 
 // Increment
-cardContainer.addEventListener("click", (e) => {
+productContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("increment")) {
     let { cartCounter, counter, order, priceEach } = incDecVars(e);
 
@@ -43,7 +43,7 @@ cardContainer.addEventListener("click", (e) => {
 });
 
 // Decrement
-cardContainer.addEventListener("click", (e) => {
+productContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("decrement")) {
     let { cartCounter, counter, nameID, order, priceEach } = incDecVars(e);
 
@@ -68,16 +68,16 @@ cardContainer.addEventListener("click", (e) => {
 });
 
 // Add-to-cart hover effect
-cardContainer.addEventListener("mouseover", (e) => {
-  const cardBtn = e.target.closest(".btn-add-to-cart");
-  if (cardBtn) {
-    cardBtn.classList.add("btn-add-to-cart-hover");
+productContainer.addEventListener("mouseover", (e) => {
+  const productBtn = e.target.closest(".btn-add-to-cart");
+  if (productBtn) {
+    productBtn.classList.add("btn-add-to-cart-hover");
   }
 });
-cardContainer.addEventListener("mouseout", (e) => {
-  const cardBtn = e.target.closest(".btn-add-to-cart");
-  if (cardBtn) {
-    cardBtn.classList.remove("btn-add-to-cart-hover");
+productContainer.addEventListener("mouseout", (e) => {
+  const productBtn = e.target.closest(".btn-add-to-cart");
+  if (productBtn) {
+    productBtn.classList.remove("btn-add-to-cart-hover");
   }
 });
 
@@ -117,12 +117,11 @@ newOrderBtn.addEventListener("click", () => {
   cartOrderContainer.innerHTML = "";
   cartOrderContainer.nextElementSibling.remove();
   emptyCart.style.display = "block";
-  emptyCart.previousElementSibling.style.display = "initial";
-  const cards = [...cardContainer.querySelectorAll(".card")];
-  for (const card of cards) {
-    const nameID = card.id;
+  const products = [...productContainer.querySelectorAll(".product")];
+  for (const product of products) {
+    const nameID = product.id;
     if (nameID) {
-      defaultAddCardStyle(nameID);
+      defaultAddProductStyle(nameID);
     }
   }
   totalPrice = 0;

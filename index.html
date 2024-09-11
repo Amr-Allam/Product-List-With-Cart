@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- displays site properly based on user's device -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,33 +17,42 @@
       sizes="32x32"
       href="./assets/images/favicon-32x32.png"
     />
+
     <link rel="stylesheet" href="style.css" />
 
     <title>Frontend Mentor | Product list with cart</title>
   </head>
   <body>
-    <div class="container">
-      <div class="desserts">
+    <main class="container">
+      <section class="desserts">
         <h1>Desserts</h1>
-        <div class="card-container"></div>
-      </div>
-      <div class="cart">
+        <div class="product-container"></div>
+      </section>
+      <section class="cart">
         <h2>Your Cart (0)</h2>
-        <img src="assets/images/illustration-empty-cart.svg" alt="empty-cart" />
-        <p class="empty-cart">Your added items will appear here</p>
+        <div class="empty-cart">
+          <img
+            src="assets/images/illustration-empty-cart.svg"
+            alt="empty-cart"
+          />
+          <p>Your added items will appear here</p>
+        </div>
         <div class="orders-container cart-orders-container"></div>
-      </div>
-    </div>
+      </section>
+    </main>
     <footer>
-      <div class="attribution">
-        Challenge by
-        <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
-          >Frontend Mentor</a
-        >.
-        <br />
-        Coded by
-        <a href="https://github.com/Amr-Allam" target="_blank">Amr Allam</a>.
-      </div>
+      Challenge by
+      <a
+        href="https://www.frontendmentor.io?ref=challenge"
+        target="_blank"
+        tabindex="99"
+        >Frontend Mentor</a
+      >.
+      <br />
+      Coded by
+      <a href="https://github.com/Amr-Allam" target="_blank" tabindex="100"
+        >Amr Allam</a
+      >.
     </footer>
     <div class="order-confirmed hidden">
       <header>

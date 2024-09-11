@@ -1,27 +1,27 @@
 "use strict";
 
-// Fetch card data from JSON file
+// Fetch product data from JSON file
 const jsonFile = async function () {
   const res = await fetch("data.json");
   const file = await res.json();
   for (const data of file) {
     const order = `
-            <div class="card">
+            <div class="product">
               <picture>
                 <source srcset="${
                   data["image"]["mobile"]
                 }" media="(max-width: 670px)" />
                 <img src="${data["image"]["desktop"]}" alt="product" />
               </picture>
-              <h3>${data["category"]}</h3>
-              <h4>${data["name"]}</h4>
-              <p>$${data["price"].toFixed(2)}</p>
-              <div class="btn btn-add-to-cart">
+              <p class="category">${data["category"]}</p>
+              <p class="name">${data["name"]}</p>
+              <p class="price">$${data["price"].toFixed(2)}</p>
+              <button class="btn-add-to-cart">
                 <img src="assets/images/icon-add-to-cart.svg" alt="cart"/> Add to Cart
-              </div>
+              </button>
             </div>
     `;
-    cardContainer.insertAdjacentHTML("beforeend", order);
+    productContainer.insertAdjacentHTML("beforeend", order);
   }
 };
 jsonFile();
@@ -29,20 +29,19 @@ jsonFile();
 // Add order to cart
 const addOrder = function (button) {
   emptyCart.style.display = "none";
-  emptyCart.previousElementSibling.style.display = "none";
 
-  const card = button.closest(".card");
-  const orderName = card.querySelector("h4").textContent;
+  const product = button.closest(".product");
+  const orderName = product.querySelector(".name").textContent;
   const orderPrice = Number(
-    card.querySelector("p").textContent.slice(1)
+    product.querySelector(".price").textContent.slice(1)
   ).toFixed(2);
-  const nameID = card
-    .closest(".card")
-    .querySelector("h4")
+  const nameID = product
+    .closest(".product")
+    .querySelector(".name")
     .textContent.replaceAll(" ", "-")
     .toLowerCase();
 
-  card.setAttribute("id", `${nameID}`);
+  product.setAttribute("id", `${nameID}`);
 
   // To not add the same order again ---------------------------------
   if (cartOrderContainer.querySelector(`#${nameID}`)) return;
@@ -93,8 +92,8 @@ const incDecVars = function (e) {
   let counter = Number(cartCounter.textContent);
 
   const nameID = e.target
-    .closest(".card")
-    .querySelector("h4")
+    .closest(".product")
+    .querySelector(".name")
     .textContent.replaceAll(" ", "-")
     .toLowerCase();
 
@@ -120,9 +119,8 @@ const removeOrder = function (order, nameID) {
   if (cartOrderContainer.childElementCount === 0) {
     cartOrderContainer.nextElementSibling.remove();
     emptyCart.style.display = "block";
-    emptyCart.previousElementSibling.style.display = "initial";
   }
-  defaultAddCardStyle(nameID);
+  defaultAddProductStyle(nameID);
 };
 
 // Update number of orders in cart
@@ -144,24 +142,26 @@ const clickedAddCartStyle = function (button) {
     .style.setProperty("outline", "3px solid var(--Red");
 };
 
-// Reset everything in card
-const defaultAddCardStyle = function (nameID) {
-  const card = cardContainer.querySelector(`#${nameID}`);
-  const cardBtn = card.querySelector(".btn-add-to-cart");
+// Reset everything in product
+const defaultAddProductStyle = function (nameID) {
+  const product = productContainer.querySelector(`#${nameID}`);
+  const productBtn = product.querySelector(".btn-add-to-cart");
 
-  card.querySelector("img").style.outline = "none";
-  cardBtn.classList.remove("btn-add-to-cart-clicked");
-  cardBtn.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" alt="cart"/> Add to Cart`;
+  product.querySelector("img").style.outline = "none";
+  productBtn.classList.remove("btn-add-to-cart-clicked");
+  productBtn.innerHTML = `<img src="assets/images/icon-add-to-cart.svg" alt="cart"/> Add to Cart`;
 };
 
 // Adding orders to confirmed orders window
 const createConfirmedOrders = function (orders) {
   for (let order of orders) {
     const nameID = order.id;
-    const card = cardContainer.querySelector(`#${nameID}`);
-    const orderName = card.querySelector("h4").textContent;
-    const orderPrice = Number(card.querySelector("p").textContent.slice(1));
-    const img = card.querySelector("img").getAttribute("src");
+    const product = productContainer.querySelector(`#${nameID}`);
+    const orderName = product.querySelector(".name").textContent;
+    const orderPrice = Number(
+      product.querySelector(".price").textContent.slice(1)
+    );
+    const img = product.querySelector("img").getAttribute("src");
 
     const counter = parseInt(order.querySelector(".order-counter").textContent);
     const confirmedOrder = `
